@@ -129,10 +129,11 @@ class CommonCalculator(QDialog):
     def change_type(self):
         x = self.sender().text()
         if x == 'Обычный':
+            self.hide()
             CommonCalculator.show_widget()
         elif x == 'Инженерный':
-            EngineerCalculator.show_widget()
             self.hide()
+            EngineerCalculator.show_widget()
         elif x == 'Физический':
             uic.loadUi('Physics.ui', self)
         elif x == 'Программист':
