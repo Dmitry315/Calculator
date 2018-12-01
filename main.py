@@ -4,14 +4,19 @@ from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 from math import sqrt, factorial, pow
 
+widgets = []
+
 
 # Common calculator class
-class Window(QDialog):
+class CommonCalculator(QDialog):
+    widgets = []
+
     def __init__(self, file):
+        CommonCalculator.widgets.append(self)
         super().__init__()
         # Load Ui file:
         self.ui = uic.loadUi(file, self)
-        # Number buttons (0 - 9):
+        # Number buttons (0 - 9) + '.':
         self.btn1.clicked.connect(self.sym)
         self.btn2.clicked.connect(self.sym)
         self.btn3.clicked.connect(self.sym)
@@ -22,6 +27,7 @@ class Window(QDialog):
         self.btn8.clicked.connect(self.sym)
         self.btn9.clicked.connect(self.sym)
         self.btn0.clicked.connect(self.sym)
+        self.btn_dot.clicked.connect(self.sym)
         # Operation buttons:
         self.btn_add.clicked.connect(self.add)
         self.btn_sub.clicked.connect(self.sub)
@@ -40,7 +46,6 @@ class Window(QDialog):
         self.programmer.clicked.connect(self.change_type)
         self.graf_building.clicked.connect(self.change_type)
         # Engineer calculator buttons
-        self.ui.show()
 
     # sqrt button
     def qsqrt(self):
@@ -116,23 +121,48 @@ class Window(QDialog):
     # change calculator type
     def change_type(self):
         x = self.sender().text()
-        self.ui.close()
-        self.clear()
         if x == 'Обычный':
-            self.ui = uic.loadUi('Common.ui', self)
+            CommonCalculator.show_widget()
         elif x == 'Инженерный':
-            self.ui = uic.loadUi('Engineer.ui', self)
+            EngineerCalculator.show_widget()
+            self.hide()
         elif x == 'Физический':
             uic.loadUi('Physics.ui', self)
         elif x == 'Программист':
             self.ui = uic.loadUi('Programmer.ui', self)
         elif x == 'Построение графиков':
             self.ui = uic.loadUi('Graf.ui', self)
-        self.ui.show()
+
+    # Show calculator widget
+    @classmethod
+    def show_widget(cls):
+        cls.widgets[0].show()
+
+    # Hide calculator widget
+    @classmethod
+    def hide_widget(cls):
+        cls.widgets[0].hide()
+
+
+# Engineer calculator class:
+# Common calculator + engineer capabilities
+class EngineerCalculator(CommonCalculator):
+    widgets = []
+
+    def __init__(self):
+        EngineerCalculator.widgets.append(self)
+        widgets.append(self)
+        super().__init__('Engineer.ui')
 
 
 # main
 if __name__ == '__main__':
     app = QApplication(argv)
-    ex = Window('Common.ui')
+    # Common calculator init
+    cc = CommonCalculator('Common.ui')
+    # Engineer calculator init
+    ec = EngineerCalculator()
+    ec.hide()
+
+    cc.show()
     exit(app.exec())
