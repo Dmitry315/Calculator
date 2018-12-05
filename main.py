@@ -128,17 +128,18 @@ class CommonCalculator(QDialog):
     # change calculator type
     def change_type(self):
         x = self.sender().text()
+        self.hide()
         if x == 'Обычный':
-            self.hide()
             CommonCalculator.show_widget()
         elif x == 'Инженерный':
-            self.hide()
             EngineerCalculator.show_widget()
         elif x == 'Физический':
-            uic.loadUi('Physics.ui', self)
+            PhysicsCalculator.show_widget()
         elif x == 'Программист':
+            # ProgrammerCalculator.show_widget()
             self.ui = uic.loadUi('Programmer.ui', self)
         elif x == 'Построение графиков':
+            # GrafCalculator.show_widget()
             self.ui = uic.loadUi('Graf.ui', self)
 
     # Show calculator widget
@@ -157,10 +158,10 @@ class CommonCalculator(QDialog):
 class EngineerCalculator(CommonCalculator):
     widgets = []
 
-    def __init__(self):
+    def __init__(self, file):
         EngineerCalculator.widgets.append(self)
-        widgets.append(self)
-        super().__init__('Engineer.ui')
+        # widgets.append(self)
+        super().__init__(file)
         # trigonometric functions
         # There is checkbox, if it is on
         # result will be calculated in degrees and
@@ -272,14 +273,41 @@ class EngineerCalculator(CommonCalculator):
         self.line.setText(str(e))
 
 
+# Physics calculator class:
+# Engineer calculator + some physical constants
+class PhysicsCalculator(EngineerCalculator):
+    widgets = []
+
+    def __init__(self):
+        PhysicsCalculator.widgets.append(self)
+        # widgets.append(self)
+        super().__init__('Physics.ui')
+        # physical constants
+        self.btn_g.clicked.connect(self.add_constant_g)
+        self.btn_G.clicked.connect(self.add_constant_G)
+        self.btn_light_speed.clicked.connect(self.add_constant_light_speed)
+
+    def add_constant_g(self):
+        self.line.setText(str(9.80665))
+
+    def add_constant_G(self):
+        self.line.setText(str(6.67e-11))
+
+    def add_constant_light_speed(self):
+        self.line.setText(str(2.997925e+8))
+
+
 # main
 if __name__ == '__main__':
     app = QApplication(argv)
     # Common calculator init
     cc = CommonCalculator('Common.ui')
     # Engineer calculator init
-    ec = EngineerCalculator()
+    ec = EngineerCalculator('Engineer.ui')
     ec.hide()
+    # Physics calculator init
+    pc = PhysicsCalculator()
+    pc.hide()
 
     cc.show()
     exit(app.exec())
