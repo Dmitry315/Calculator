@@ -45,7 +45,6 @@ class CommonCalculator(QDialog):
         self.physics.clicked.connect(self.change_type)
         self.programmer.clicked.connect(self.change_type)
         self.graf_building.clicked.connect(self.change_type)
-        # Engineer calculator buttons
 
     # sqrt button
     def qsqrt(self):
@@ -136,8 +135,7 @@ class CommonCalculator(QDialog):
         elif x == 'Физический':
             PhysicsCalculator.show_widget()
         elif x == 'Программист':
-            # ProgrammerCalculator.show_widget()
-            self.ui = uic.loadUi('Programmer.ui', self)
+            ProgrammerCalculator.show_widget()
         elif x == 'Построение графиков':
             # GrafCalculator.show_widget()
             self.ui = uic.loadUi('Graf.ui', self)
@@ -297,6 +295,105 @@ class PhysicsCalculator(EngineerCalculator):
         self.line.setText(str(2.997925e+8))
 
 
+# Programmer calculator class:
+class ProgrammerCalculator(QDialog):
+    widgets = []
+
+    def __init__(self):
+        ProgrammerCalculator.widgets.append(self)
+        super().__init__()
+        self.ui = uic.loadUi('Programmer.ui', self)
+        # Number buttons (0 - 9) + '.':
+        self.btn1.clicked.connect(self.sym)
+        self.btn2.clicked.connect(self.sym)
+        self.btn3.clicked.connect(self.sym)
+        self.btn4.clicked.connect(self.sym)
+        self.btn5.clicked.connect(self.sym)
+        self.btn6.clicked.connect(self.sym)
+        self.btn7.clicked.connect(self.sym)
+        self.btn8.clicked.connect(self.sym)
+        self.btn9.clicked.connect(self.sym)
+        self.btn0.clicked.connect(self.sym)
+        self.btn_dot.clicked.connect(self.sym)
+        # Equal and C button
+        self.btn_eq.clicked.connect(self.eq)
+        self.btn_c.clicked.connect(self.clear)
+        # Change calculator type
+        self.common.clicked.connect(self.change_type)
+        self.engineer.clicked.connect(self.change_type)
+        self.physics.clicked.connect(self.change_type)
+        self.programmer.clicked.connect(self.change_type)
+        self.graf_building.clicked.connect(self.change_type)
+
+    # clear all fields
+    def clear(self):
+        self.line_bin.setText('')
+        self.line_oct.setText('')
+        self.line_dec.setText('')
+        self.line_hex.setText('')
+
+    def sym(self):
+        x = self.sender().text()
+        if self.bin.isChecked():
+            self.line_bin.setText(self.line_bin.text() + x)
+        elif self.oct.isChecked():
+            self.line_oct.setText(self.line_oct.text() + x)
+        elif self.dec.isChecked():
+            self.line_dec.setText(self.line_dec.text() + x)
+        elif self.hex.isChecked():
+            self.line_hex.setText(self.line_hex.text() + x)
+
+    def eq(self):
+        try:
+            if self.bin.isChecked():
+                x = int(self.line_bin.text(), 2)
+            elif self.oct.isChecked():
+                x = int(self.line_oct.text(), 8)
+            elif self.dec.isChecked():
+                x = int(self.line_dec.text())
+            elif self.hex.isChecked():
+                x = int(self.line_hex.text(), 16)
+            self.line_bin.setText(str(bin(x))[2:])
+            self.line_oct.setText(str(oct(x))[2:])
+            self.line_dec.setText(str(x))
+            self.line_hex.setText(str(hex(x))[2:])
+        except Exception as err:
+            if self.bin.isChecked():
+                self.line_bin.setText('ERROR')
+            elif self.oct.isChecked():
+                self.line_oct.setText('ERROR')
+            elif self.dec.isChecked():
+                self.line_dec.setText('ERROR')
+            elif self.hex.isChecked():
+                self.line_hex.setText('ERROR')
+
+    # change calculator type
+    def change_type(self):
+        x = self.sender().text()
+        self.hide()
+        if x == 'Обычный':
+            CommonCalculator.show_widget()
+        elif x == 'Инженерный':
+            EngineerCalculator.show_widget()
+        elif x == 'Физический':
+            PhysicsCalculator.show_widget()
+        elif x == 'Программист':
+            ProgrammerCalculator.show_widget()
+        elif x == 'Построение графиков':
+            # GrafCalculator.show_widget()
+            self.ui = uic.loadUi('Graf.ui', self)
+
+    # Show calculator widget
+    @classmethod
+    def show_widget(cls):
+        cls.widgets[0].show()
+
+    # Hide calculator widget
+    @classmethod
+    def hide_widget(cls):
+        cls.widgets[0].hide()
+
+
 # main
 if __name__ == '__main__':
     app = QApplication(argv)
@@ -308,6 +405,9 @@ if __name__ == '__main__':
     # Physics calculator init
     pc = PhysicsCalculator()
     pc.hide()
+    # Programmer calculator init
+    prc = ProgrammerCalculator()
+    prc.hide()
 
     cc.show()
     exit(app.exec())
