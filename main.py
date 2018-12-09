@@ -344,6 +344,7 @@ class ProgrammerCalculator(QDialog):
 
     def eq(self):
         try:
+            x = 0
             if self.bin.isChecked():
                 x = int(self.line_bin.text(), 2)
             elif self.oct.isChecked():
@@ -452,24 +453,17 @@ class GraphCalculator(QDialog):
             # (x + 5)(x - 6)(x - 3)(x + 9) ...
             if parabola:
                 for i in result_x:
-                    try:
                         res = [float(k + i) for k in arg]
                         mult = 1.0
                         for l in res:
                             mult *= l
                         result_y.append(mult * coef)
-                    except Exception as err:
-                        self.err.setText('ERROR')
             else:
                 result_y = [func(k) for k in result_x]
             self.graphicsView.clear()
             self.graphicsView.plot(result_x, result_y, pen='r')
         except Exception as err:
             self.err.setText('ERROR')
-
-
-
-
 
     # change calculator type
     def change_type(self):
