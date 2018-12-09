@@ -137,8 +137,7 @@ class CommonCalculator(QDialog):
         elif x == 'Программист':
             ProgrammerCalculator.show_widget()
         elif x == 'Построение графиков':
-            # GrafCalculator.show_widget()
-            self.ui = uic.loadUi('Graf.ui', self)
+            GraphCalculator.show_widget()
 
     # Show calculator widget
     @classmethod
@@ -282,13 +281,13 @@ class PhysicsCalculator(EngineerCalculator):
         super().__init__('Physics.ui')
         # physical constants
         self.btn_g.clicked.connect(self.add_constant_g)
-        self.btn_G.clicked.connect(self.add_constant_G)
+        self.btn_G.clicked.connect(self.add_constant_gravitation)
         self.btn_light_speed.clicked.connect(self.add_constant_light_speed)
 
     def add_constant_g(self):
         self.line.setText(str(9.80665))
 
-    def add_constant_G(self):
+    def add_constant_gravitation(self):
         self.line.setText(str(6.67e-11))
 
     def add_constant_light_speed(self):
@@ -380,8 +379,112 @@ class ProgrammerCalculator(QDialog):
         elif x == 'Программист':
             ProgrammerCalculator.show_widget()
         elif x == 'Построение графиков':
-            # GrafCalculator.show_widget()
-            self.ui = uic.loadUi('Graf.ui', self)
+            GraphCalculator.show_widget()
+
+    # Show calculator widget
+    @classmethod
+    def show_widget(cls):
+        cls.widgets[0].show()
+
+    # Hide calculator widget
+    @classmethod
+    def hide_widget(cls):
+        cls.widgets[0].hide()
+
+
+# Graph build calculator class
+class GraphCalculator(QDialog):
+    widgets = []
+
+    def __init__(self):
+        GraphCalculator.widgets.append(self)
+        super().__init__()
+        self.ui = uic.loadUi('Graph.ui', self)
+        # Change calculator type
+        self.common.clicked.connect(self.change_type)
+        self.engineer.clicked.connect(self.change_type)
+        self.physics.clicked.connect(self.change_type)
+        self.programmer.clicked.connect(self.change_type)
+        self.graf_building.clicked.connect(self.change_type)
+        # Build graph button
+        self.build_graph.clicked.connect(self.build)
+
+    # build graph
+    def build(self):
+        try:
+            accuracy = float(self.accuracy.value())
+            lower_limit = float(self.lower_limit.value())
+            higher_limit = float(self.higher_limit.value())
+            parabola = False
+            # making default function
+            # I know that assigning lambda functions to variables
+            # is not right following PEP8 , but writing all
+            # functions with def is more irrationally
+            func = lambda x: x
+            # linear function case
+            if self.radio_linear_function.isChecked():
+                a = float(self.linear_function.text())
+                func = lambda x: a * x
+            # power function case
+            elif self.radio_power_function.isChecked():
+                a = float(self.power_function.text())
+                func = lambda x: pow(x, a)
+            # exponential function case
+            if self.radio_exponential_function.isChecked():
+                a = float(self.exponential_function.text())
+                func = lambda x: pow(a, x)
+            # sin function case
+            if self.radio_sin_function.isChecked():
+                a = float(self.sin_function.text())
+                func = lambda x: sin(a + x)
+            # parabola function case
+            if self.radio_parabol_function.isChecked():
+                arg = [float(i) for i in self.parabol_nulls.text().split(',')]
+                coef = float(self.coef.text())
+                parabola = True
+            result_x = [l * accuracy for l
+                        in range(int(lower_limit // accuracy),
+                                 int(higher_limit // accuracy))] + [higher_limit]
+            result_y = []
+            # parabola function is definite case because
+            # it can consists of many functions, it is
+            # specific curve line, for example:
+            # (x + 5)(x - 6)(x - 3)(x + 9) ...
+            if parabola:
+                for i in result_x:
+                    try:
+                        res = [float(k + i) for k in arg]
+                        mult = 1.0
+                        for l in res:
+                            mult *= l
+                        result_y.append(mult * coef)
+                    except Exception as err:
+                        self.err.setText('ERROR')
+            else:
+                result_y = [func(k) for k in result_x]
+            self.graphicsView.clear()
+            self.graphicsView.plot(result_x, result_y, pen='r')
+        except Exception as err:
+            self.err.setText('ERROR')
+
+
+
+
+
+    # change calculator type
+    def change_type(self):
+        x = self.sender().text()
+        self.hide()
+        if x == 'Обычный':
+            CommonCalculator.show_widget()
+        elif x == 'Инженерный':
+            EngineerCalculator.show_widget()
+        elif x == 'Физический':
+            PhysicsCalculator.show_widget()
+        elif x == 'Программист':
+            ProgrammerCalculator.show_widget()
+        elif x == 'Построение графиков':
+            GraphCalculator.show_widget()
 
     # Show calculator widget
     @classmethod
@@ -408,6 +511,9 @@ if __name__ == '__main__':
     # Programmer calculator init
     prc = ProgrammerCalculator()
     prc.hide()
+    # Graph calculator init
+    gc = GraphCalculator()
+    gc.hide()
 
     cc.show()
     exit(app.exec())
