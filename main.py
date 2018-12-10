@@ -53,7 +53,7 @@ class CommonCalculator(QDialog):
         self.physics.clicked.connect(self.change_type)
         self.programmer.clicked.connect(self.change_type)
         self.graf_building.clicked.connect(self.change_type)
-
+        
     # keyboard input
     def keyPressEvent(self, event):
         # num pressed:
