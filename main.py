@@ -4,6 +4,11 @@ from PyQt5 import uic
 from math import *
 from PyQt5.QtCore import Qt
 
+# Constants
+G = '9.80665'
+GRAV = '6.67e-11'
+E = '2.997925e+8'
+
 widgets = []
 ##########################
 # The calculator project #
@@ -48,7 +53,7 @@ class CommonCalculator(QDialog):
         self.physics.clicked.connect(self.change_type)
         self.programmer.clicked.connect(self.change_type)
         self.graf_building.clicked.connect(self.change_type)
-    s
+
     # keyboard input
     def keyPressEvent(self, event):
         # num pressed:
@@ -342,13 +347,13 @@ class PhysicsCalculator(EngineerCalculator):
         self.btn_light_speed.clicked.connect(self.add_constant_light_speed)
 
     def add_constant_g(self):
-        self.line.setText(str(9.80665))
+        self.line.setText(G)
 
     def add_constant_gravitation(self):
-        self.line.setText(str(6.67e-11))
+        self.line.setText(GRAV)
 
     def add_constant_light_speed(self):
-        self.line.setText(str(2.997925e+8))
+        self.line.setText(E)
 
 
 # Programmer calculator class:
