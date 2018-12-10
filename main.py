@@ -1,10 +1,13 @@
 from sys import argv, exit
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 from math import *
+from PyQt5.QtCore import Qt
 
 widgets = []
+##########################
+# The calculator project #
+##########################
 
 
 # Common calculator class
@@ -37,7 +40,7 @@ class CommonCalculator(QDialog):
         self.btn_fact.clicked.connect(self.fact)
         self.btn_pow.clicked.connect(self.pow)
         # Equal and C button
-        self.btn_eq.clicked.connect(self.eq)
+        self.btn_eq.clicked.connect(self.equal)
         self.btn_c.clicked.connect(self.clear)
         # Change calculator type
         self.common.clicked.connect(self.change_type)
@@ -45,6 +48,60 @@ class CommonCalculator(QDialog):
         self.physics.clicked.connect(self.change_type)
         self.programmer.clicked.connect(self.change_type)
         self.graf_building.clicked.connect(self.change_type)
+    s
+    # keyboard input
+    def keyPressEvent(self, event):
+        # num pressed:
+        if event.key() == Qt.Key_1:
+            self.line.setText(self.line.text() + '1')
+        elif event.key() == Qt.Key_2:
+            self.line.setText(self.line.text() + '2')
+        elif event.key() == Qt.Key_3:
+            self.line.setText(self.line.text() + '3')
+        elif event.key() == Qt.Key_4:
+            self.line.setText(self.line.text() + '4')
+        elif event.key() == Qt.Key_5:
+            self.line.setText(self.line.text() + '5')
+        elif event.key() == Qt.Key_6:
+            self.line.setText(self.line.text() + '6')
+        elif event.key() == Qt.Key_7:
+            self.line.setText(self.line.text() + '7')
+        elif event.key() == Qt.Key_8:
+            self.line.setText(self.line.text() + '8')
+        elif event.key() == Qt.Key_9:
+            self.line.setText(self.line.text() + '9')
+        elif event.key() == Qt.Key_0:
+            self.line.setText(self.line.text() + '0')
+        # operations:
+        elif event.key() == Qt.Key_Enter:
+            self.equal()
+        elif event.key() == Qt.Key_Plus:
+            self.add()
+        elif event.key() == Qt.Key_Minus:
+            self.sub()
+        elif event.key() == Qt.Key_Asterisk:
+            self.mult()
+        elif event.key() == Qt.Key_Slash:
+            self.div()
+        elif event.key() == Qt.Key_Backspace:
+            self.line.setText(self.line.text()[:-1])
+        # change calculator hot-keys:
+        if int(event.modifiers()) == Qt.AltModifier:
+            if event.key() == Qt.Key_C:
+                self.hide()
+                CommonCalculator.show_widget()
+            if event.key() == Qt.Key_I:
+                self.hide()
+                EngineerCalculator.show_widget()
+            if event.key() == Qt.Key_F:
+                self.hide()
+                PhysicsCalculator.show_widget()
+            if event.key() == Qt.Key_P:
+                self.hide()
+                ProgrammerCalculator.show_widget()
+            if event.key() == Qt.Key_G:
+                self.hide()
+                GraphCalculator.show_widget()
 
     # sqrt button
     def qsqrt(self):
@@ -104,7 +161,7 @@ class CommonCalculator(QDialog):
         self.operation = '^'
 
     # equal button, output 'ERROR' in case of Exception
-    def eq(self):
+    def equal(self):
         try:
             y = float(self.line.text())
             x = float(self.first_num)
@@ -331,6 +388,7 @@ class ProgrammerCalculator(QDialog):
         self.line_dec.setText('')
         self.line_hex.setText('')
 
+    # add number to the line
     def sym(self):
         x = self.sender().text()
         if self.bin.isChecked():
