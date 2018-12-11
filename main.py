@@ -53,7 +53,7 @@ class CommonCalculator(QDialog):
         self.physics.clicked.connect(self.change_type)
         self.programmer.clicked.connect(self.change_type)
         self.graf_building.clicked.connect(self.change_type)
-        
+
     # keyboard input
     def keyPressEvent(self, event):
         # num pressed:
@@ -112,14 +112,14 @@ class CommonCalculator(QDialog):
     def qsqrt(self):
         try:
             x = float(self.line.text())
-            self.line.setText(str(sqrt(x)))
+            self.line.setText(str(round(sqrt(x), 6)))
         except Exception as err:
             self.line.setText('ERROR')
 
     # facrotial button
     def fact(self):
         try:
-            x = int(self.line.text())
+            x = int(float(self.line.text()))
             self.line.setText(str(factorial(x)))
         except Exception as err:
             self.line.setText('ERROR')
@@ -171,18 +171,18 @@ class CommonCalculator(QDialog):
             y = float(self.line.text())
             x = float(self.first_num)
             if self.operation == '+':
-                self.line.setText(str(x + y))
+                self.line.setText(str(round(x + y, 6)))
             elif self.operation == '-':
-                self.line.setText(str(x - y))
+                self.line.setText(str(round(x - y, 6)))
             elif self.operation == '*':
-                self.line.setText(str(x * y))
+                self.line.setText(str(round(x * y, 6)))
             elif self.operation == '/':
-                self.line.setText(str(x / y))
+                self.line.setText(str(round(x / y, 6)))
             elif self.operation == '^':
-                self.line.setText(str(pow(x, y)))
+                self.line.setText(str(round(pow(x, y), 6)))
             # Engineer calculator option
             elif self.operation == 'mod':
-                self.line.setText(str(x % y))
+                self.line.setText(str(round(x % y, 6)))
         except Exception as err:
             self.line.setText('ERROR')
 
@@ -240,6 +240,15 @@ class EngineerCalculator(CommonCalculator):
         # math constants
         self.btn_e.clicked.connect(self.add_constant_e)
         self.btn_pi.clicked.connect(self.add_constant_pi)
+        # gain num power of 2
+        self.btn_powto2.clicked.connect(self.pow_to_two)
+
+    def pow_to_two(self):
+        try:
+            x = float(self.line.text())
+            self.line.setText(str(pow(x, 2)))
+        except Exception as err:
+            self.line.setText('ERROR')
 
     # common trigonometric functions
     def sin(self):
@@ -247,7 +256,7 @@ class EngineerCalculator(CommonCalculator):
             x = float(self.line.text())
             if self.degrees.isChecked():
                 x = x * pi / 180
-            self.line.setText(str(sin(x)))
+            self.line.setText(str(round(sin(x), 9)))
         except Exception as err:
             self.line.setText('ERROR')
 
@@ -256,7 +265,7 @@ class EngineerCalculator(CommonCalculator):
             x = float(self.line.text())
             if self.degrees.isChecked():
                 x = x * pi / 180
-            self.line.setText(str(cos(x)))
+            self.line.setText(str(round(cos(x), 9)))
         except Exception as err:
             self.line.setText('ERROR')
 
@@ -265,7 +274,7 @@ class EngineerCalculator(CommonCalculator):
             x = float(self.line.text())
             if self.degrees.isChecked():
                 x = x * pi / 180
-            self.line.setText(str(tan(x)))
+            self.line.setText(str(round(tan(x), 9)))
         except Exception as err:
             self.line.setText('ERROR')
 
@@ -276,7 +285,7 @@ class EngineerCalculator(CommonCalculator):
             x = asin(x)
             if self.degrees.isChecked():
                 x = x / pi * 180
-            self.line.setText(str(x))
+            self.line.setText(str(round(x, 9)))
         except Exception as err:
             self.line.setText('ERROR')
 
@@ -286,7 +295,7 @@ class EngineerCalculator(CommonCalculator):
             x = acos(x)
             if self.degrees.isChecked():
                 x = x / pi * 180
-            self.line.setText(str(x))
+            self.line.setText(str(round(x, 9)))
         except Exception as err:
             self.line.setText('ERROR')
 
@@ -296,7 +305,7 @@ class EngineerCalculator(CommonCalculator):
             x = atan(x)
             if self.degrees.isChecked():
                 x = x / pi * 180
-            self.line.setText(str(x))
+            self.line.setText(str(round(x, 9)))
         except Exception as err:
             self.line.setText('ERROR')
 
