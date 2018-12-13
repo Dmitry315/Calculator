@@ -46,6 +46,7 @@ class CommonCalculator(QDialog):
         self.btn_pow.clicked.connect(self.pow)
         # Equal and C button
         self.btn_eq.clicked.connect(self.equal)
+        self.line.returnPressed.connect(self.eq)
         self.btn_c.clicked.connect(self.clear)
         # Change calculator type
         self.common.clicked.connect(self.change_type)
@@ -164,6 +165,39 @@ class CommonCalculator(QDialog):
         self.first_num = self.line.text()
         self.line.setText('')
         self.operation = '^'
+
+    # equal button for Enter press
+    # allow only one operation
+    def eq(self):
+        try:
+            x = self.line.text()
+            if '+' in x:
+                x = [float(i) for i in x.split('+')]
+                if len(x) > 2:
+                    raise Exception
+                self.line.setText(str(x[0] * x[1]))
+            elif '*' in x:
+                x = [float(i) for i in x.split('*')]
+                if len(x) > 2:
+                    raise Exception
+                self.line.setText(str(x[0] * x[1]))
+            elif '/' in x:
+                x = [float(i) for i in x.split('/')]
+                if len(x) > 2:
+                    raise Exception
+                self.line.setText(str(x[0] / x[1]))
+            elif '-' in x:
+                x = [float(i) for i in x.split('-')]
+                if len(x) > 2:
+                    raise Exception
+                self.line.setText(str(x[0] - x[1]))
+            elif 'mod' in x:
+                x = [float(i) for i in x.split('mod')]
+                if len(x) > 2:
+                    raise Exception
+                self.line.setText(str(x[0] % x[1]))
+        except Exception as err:
+            self.line.setText('ERROR')
 
     # equal button, output 'ERROR' in case of Exception
     def equal(self):
