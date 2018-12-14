@@ -80,7 +80,7 @@ class CommonCalculator(QDialog):
             self.line.setText(self.line.text() + '0')
         # operations:
         elif event.key() == Qt.Key_Enter:
-            self.equal()
+            self.eq()
         elif event.key() == Qt.Key_Plus:
             self.add()
         elif event.key() == Qt.Key_Minus:
@@ -175,7 +175,7 @@ class CommonCalculator(QDialog):
                 x = [float(i) for i in x.split('+')]
                 if len(x) > 2:
                     raise Exception
-                self.line.setText(str(x[0] * x[1]))
+                self.line.setText(str(x[0] + x[1]))
             elif '*' in x:
                 x = [float(i) for i in x.split('*')]
                 if len(x) > 2:
@@ -218,7 +218,7 @@ class CommonCalculator(QDialog):
             elif self.operation == 'mod':
                 self.line.setText(str(round(x % y, 6)))
         except Exception as err:
-            self.line.setText('ERROR')
+            self.eq()
 
     # change calculator type
     def change_type(self):
@@ -265,8 +265,9 @@ class EngineerCalculator(CommonCalculator):
         self.btn_arcsin.clicked.connect(self.arcsin)
         self.btn_arccos.clicked.connect(self.arccos)
         self.btn_arctg.clicked.connect(self.arctg)
-        # logarithm button
-        self.btn_log.clicked.connect(self.log)
+        # logarithm buttons
+        self.btn_ln.clicked.connect(self.ln)
+        self.btn_lg.clicked.connect(self.lg)
         # modation button
         self.btn_mod.clicked.connect(self.mod)
         # absolute value button
@@ -343,11 +344,19 @@ class EngineerCalculator(CommonCalculator):
         except Exception as err:
             self.line.setText('ERROR')
 
-    # logarithm function
-    def log(self):
+    # logarithm function (e)
+    def ln(self):
         try:
             x = float(self.line.text())
             self.line.setText(str(log(x)))
+        except Exception as err:
+            self.line.setText('ERROR')
+
+    # logarithm function (10)
+    def lg(self):
+        try:
+            x = float(self.line.text())
+            self.line.setText(str(log(x, 10)))
         except Exception as err:
             self.line.setText('ERROR')
 

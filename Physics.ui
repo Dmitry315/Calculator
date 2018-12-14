@@ -177,23 +177,16 @@
    <property name="geometry">
     <rect>
      <x>480</x>
-     <y>190</y>
+     <y>180</y>
      <width>111</width>
      <height>211</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="6" column="0">
-     <widget class="QPushButton" name="btn_abs">
-      <property name="text">
-       <string>abs</string>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="0">
      <widget class="QPushButton" name="btn_powto2">
       <property name="text">
-       <string>^2</string>
+       <string>X^2</string>
       </property>
      </widget>
     </item>
@@ -204,6 +197,13 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="btn_pow">
+      <property name="text">
+       <string>X^Y</string>
+      </property>
+     </widget>
+    </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="btn_sqrt">
       <property name="text">
@@ -211,17 +211,24 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="btn_pow">
+    <item row="5" column="0">
+     <widget class="QPushButton" name="btn_ln">
       <property name="text">
-       <string>^</string>
+       <string>ln</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="btn_log">
+    <item row="7" column="0">
+     <widget class="QPushButton" name="btn_abs">
       <property name="text">
-       <string>log</string>
+       <string>abs</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="btn_lg">
+      <property name="text">
+       <string>lg</string>
       </property>
      </widget>
     </item>
@@ -278,7 +285,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>130</y>
+     <y>120</y>
      <width>431</width>
      <height>54</height>
     </rect>
@@ -334,7 +341,7 @@
      <x>600</x>
      <y>150</y>
      <width>81</width>
-     <height>111</height>
+     <height>81</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_6">
@@ -371,7 +378,7 @@
    <property name="geometry">
     <rect>
      <x>600</x>
-     <y>270</y>
+     <y>250</y>
      <width>81</width>
      <height>131</height>
     </rect>

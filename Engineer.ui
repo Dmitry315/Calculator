@@ -200,14 +200,14 @@
     <item row="4" column="0">
      <widget class="QPushButton" name="btn_powto2">
       <property name="text">
-       <string>^2</string>
+       <string>X^2</string>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
      <widget class="QPushButton" name="btn_pow">
       <property name="text">
-       <string>^</string>
+       <string>X^Y</string>
       </property>
      </widget>
     </item>
@@ -364,9 +364,9 @@
    </property>
    <layout class="QGridLayout" name="gridLayout_7">
     <item row="0" column="0">
-     <widget class="QPushButton" name="btn_log">
+     <widget class="QPushButton" name="btn_ln">
       <property name="text">
-       <string>log</string>
+       <string>ln</string>
       </property>
      </widget>
     </item>
@@ -374,6 +374,13 @@
      <widget class="QPushButton" name="btn_abs">
       <property name="text">
        <string>abs</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="btn_lg">
+      <property name="text">
+       <string>lg</string>
       </property>
      </widget>
     </item>
