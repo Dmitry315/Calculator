@@ -532,27 +532,25 @@ class GraphCalculator(QDialog):
             lower_limit = float(self.lower_limit.value())
             higher_limit = float(self.higher_limit.value())
             parabola = False
+            polynomial = False
             # making default function
             # I know that assigning lambda functions to variables
             # is not right following PEP8 , but writing all
             # functions with def is more irrationally
             func = lambda x: x
-            # linear function case
-            if self.radio_linear_function.isChecked():
-                a = float(self.linear_function.text())
-                func = lambda x: a * x
-            # power function case
-            elif self.radio_power_function.isChecked():
-                a = float(self.power_function.text())
-                func = lambda x: pow(x, a)
             # exponential function case
             if self.radio_exponential_function.isChecked():
                 a = float(self.exponential_function.text())
                 func = lambda x: pow(a, x)
             # sin function case
             if self.radio_sin_function.isChecked():
-                a = float(self.sin_function.text())
-                func = lambda x: sin(a + x)
+                a1 = float(self.sin_function_coef1.text())
+                a2 = float(self.sin_function_coef2.text())
+                func = lambda x: sin(a1 + a2 * x)
+            # polynomial
+            if self.radio_polynomial.isChecked():
+                arg = [float(i) for i in self.polynomial_coefs.text().split(',')]
+                polynomial = True
             # parabola function case
             if self.radio_parabol_function.isChecked():
                 arg = [float(i) for i in self.parabol_nulls.text().split(',')]
@@ -566,17 +564,23 @@ class GraphCalculator(QDialog):
             # it can consists of many functions, it is
             # specific curve line, for example:
             # (x + 5)(x - 6)(x - 3)(x + 9) ...
-            if parabola:
+            if polynomial:
                 for i in result_x:
-                        res = [float(k + i) for k in arg]
-                        mult = 1.0
-                        for l in res:
-                            mult *= l
-                        result_y.append(mult * coef)
+                    res = [float(k*pow(i, num)) for num, k in enumerate(arg)]
+                    res = sum(res)
+                    result_y.append(res)
+            elif parabola:
+                for i in result_x:
+                    res = [float(k + i) for k in arg]
+                    mult = 1.0
+                    for l in res:
+                        mult *= l
+                    result_y.append(mult * coef)
             else:
                 result_y = [func(k) for k in result_x]
             self.graphicsView.clear()
             self.graphicsView.plot(result_x, result_y, pen='r')
+            self.err.setText('')
         except Exception as err:
             self.err.setText('ERROR')
 

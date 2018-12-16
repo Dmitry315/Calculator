@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>828</width>
-    <height>454</height>
+    <width>792</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="cursor">
@@ -28,7 +28,7 @@
      <x>20</x>
      <y>10</y>
      <width>122</width>
-     <height>211</height>
+     <height>271</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_4">
@@ -72,33 +72,20 @@
   <widget class="PlotWidget" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>20</y>
-     <width>381</width>
-     <height>211</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="build_graph">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
+     <x>160</x>
      <y>10</y>
-     <width>75</width>
-     <height>23</height>
+     <width>621</width>
+     <height>281</height>
     </rect>
-   </property>
-   <property name="text">
-    <string>build</string>
    </property>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>70</y>
-     <width>211</width>
-     <height>121</height>
+     <x>530</x>
+     <y>370</y>
+     <width>231</width>
+     <height>131</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
@@ -156,52 +143,13 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>260</y>
-     <width>771</width>
-     <height>171</height>
+     <y>290</y>
+     <width>451</width>
+     <height>211</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_8">
-    <item row="0" column="2">
-     <layout class="QGridLayout" name="gridLayout_6">
-      <item row="0" column="3">
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>+ X)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>sin(</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="sin_function">
-        <property name="text">
-         <string>1</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>Синусоида</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QRadioButton" name="radio_sin_function">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="2">
+    <item row="4" column="0">
      <layout class="QGridLayout" name="gridLayout_9">
       <item row="0" column="1">
        <widget class="QRadioButton" name="radio_parabol_function">
@@ -244,86 +192,61 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="linear_function">
+    <item row="2" column="0">
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="5">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>X)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>Синусоида</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLineEdit" name="sin_function_coef2">
         <property name="text">
          <string>1</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_8">
+      <item row="0" column="6">
+       <widget class="QRadioButton" name="radio_sin_function">
         <property name="text">
-         <string>* X </string>
+         <string/>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_9">
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Линейная функция</string>
+         <string>sin(</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QRadioButton" name="radio_linear_function">
+       <widget class="QLabel" name="label_4">
         <property name="text">
-         <string/>
+         <string> + </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="sin_function_coef1">
+        <property name="text">
+         <string>3.14</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item row="1" column="0">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Степенная функция</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>X ^ </string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="power_function">
-        <property name="text">
-         <string>2</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QRadioButton" name="radio_power_function">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0">
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>^ X</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>Показательная функция</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="exponential_function">
         <property name="text">
@@ -338,35 +261,77 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>^ X</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Показательная функция</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
-    <item row="1" column="1">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
+    <item row="3" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="2">
+       <widget class="QRadioButton" name="radio_polynomial">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="polynomial_coefs">
+        <property name="text">
+         <string>1, 2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Коэфициенты многочлена</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="err">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>40</y>
-     <width>61</width>
-     <height>16</height>
+     <x>590</x>
+     <y>300</y>
+     <width>111</width>
+     <height>51</height>
     </rect>
    </property>
-   <property name="text">
-    <string/>
-   </property>
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="build_graph">
+      <property name="text">
+       <string>build</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="err">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <customwidgets>
