@@ -191,6 +191,11 @@ class CommonCalculator(QDialog):
                 if len(x) > 2:
                     raise Exception
                 self.line.setText(str(x[0] - x[1]))
+            elif '^' in x:
+                x = [float(i) for i in x.split('^')]
+                if len(x) > 2:
+                    raise Exception
+                self.line.setText(str(pow(x[0], x[1])))
             elif 'mod' in x:
                 x = [float(i) for i in x.split('mod')]
                 if len(x) > 2:
@@ -427,7 +432,6 @@ class ProgrammerCalculator(QDialog):
         self.btn8.clicked.connect(self.sym)
         self.btn9.clicked.connect(self.sym)
         self.btn0.clicked.connect(self.sym)
-        self.btn_dot.clicked.connect(self.sym)
         # Equal and C button
         self.btn_eq.clicked.connect(self.eq)
         self.btn_c.clicked.connect(self.clear)
